@@ -1,0 +1,12 @@
+<h1>Comentarios</h1>
+<table border="1" cellpadding="6">
+  <tr><th>Autor</th><th>Noticia</th><th>Texto</th><th>Acciones</th></tr>
+  <% @comments.each do |c| %>
+    <tr>
+      <td><%= c.user.name %></td>
+      <td><%= c.news_article.title %></td>
+      <td><%= c.body %></td>
+      <td><%= button_to "Eliminar", admin_comment_path(c), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>

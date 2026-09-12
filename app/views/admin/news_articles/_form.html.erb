@@ -1,0 +1,18 @@
+<%= form_with model: news_article, url: news_article.persisted? ? admin_news_article_path(news_article) : admin_news_articles_path do |f| %>
+  <% if news_article.errors.any? %>
+    <div style="color: red;">
+      <ul>
+        <% news_article.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.label :title %><br>
+  <%= f.text_field :title %><br>
+  <%= f.label :body %><br>
+  <%= f.text_area :body, rows: 8 %><br>
+  <%= f.label :category_id, "Categoría" %><br>
+  <%= f.collection_select :category_id, Category.order(:name), :id, :name %><br>
+  <%= f.label :cover_image, "Imagen de portada" %><br>
+  <%= f.file_field :cover_image %><br>
+  <%= f.submit "Guardar" %>
+<% end %>

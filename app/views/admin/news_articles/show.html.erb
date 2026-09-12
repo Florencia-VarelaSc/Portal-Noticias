@@ -1,0 +1,7 @@
+<h1><%= @news_article.title %></h1>
+<p>Categoría: <%= @news_article.category.name %> | Estado: <%= @news_article.status %></p>
+<% if @news_article.cover_image.attached? %>
+  <%= image_tag @news_article.cover_image, style: "max-width: 300px;" %>
+<% end %>
+<p><%= simple_format(@news_article.body) %></p>
+<%= link_to "Volver", admin_news_articles_path %>

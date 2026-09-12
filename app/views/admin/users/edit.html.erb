@@ -1,0 +1,6 @@
+<h1>Editar usuario: <%= @user.name %></h1>
+<%= form_with model: @user, url: admin_user_path(@user) do |f| %>
+  <%= f.label :active, "Activo" %>
+  <%= f.check_box :active %><br>
+  <%= f.submit "Guardar" %>
+<% end %>

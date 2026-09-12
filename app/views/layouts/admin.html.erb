@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin - Sistema de noticias</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  </head>
+  <body style="font-family: sans-serif; margin: 2rem;">
+    <% if notice %><p style="color: green;"><%= notice %></p><% end %>
+    <% if alert %><p style="color: red;"><%= alert %></p><% end %>
+    <% if current_admin %>
+      <nav style="margin-bottom: 1.5rem;">
+        <%= link_to "Dashboard", admin_root_path %> |
+        <%= link_to "Noticias", admin_news_articles_path %> |
+        <%= link_to "Categorías", admin_categories_path %> |
+        <%= link_to "Usuarios", admin_users_path %> |
+        <%= link_to "Comentarios", admin_comments_path %> |
+        <%= button_to "Salir", admin_logout_path, method: :delete %>
+      </nav>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

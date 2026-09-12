@@ -1,0 +1,6 @@
+<h1>Editar categoría</h1>
+<%= form_with model: @category, url: admin_category_path(@category) do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.submit "Guardar" %>
+<% end %>
