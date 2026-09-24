@@ -1,6 +1,13 @@
+
 module Admin
   class CategoriesController < Admin::BaseController
-    before_action :set_category, only: [ :show, :edit, :update, :destroy ]
+
+    # Solo los administradores pueden modificar categorías.
+    before_action :require_admin_role,
+      except: [:index, :show]
+
+    before_action :set_category,
+      only: [:show, :edit, :update, :destroy]
 
     def index
       @categories = Category.order(:name)
@@ -15,8 +22,10 @@ module Admin
 
     def create
       @category = Category.new(category_params)
+
       if @category.save
-        redirect_to admin_categories_path, notice: "Categoría creada."
+        redirect_to admin_categories_path,
+          notice: "Categoría creada."
       else
         render :new, status: :unprocessable_entity
       end
@@ -27,7 +36,8 @@ module Admin
 
     def update
       if @category.update(category_params)
-        redirect_to admin_categories_path, notice: "Categoría actualizada."
+        redirect_to admin_categories_path,
+          notice: "Categoría actualizada."
       else
         render :edit, status: :unprocessable_entity
       end
@@ -35,9 +45,11 @@ module Admin
 
     def destroy
       if @category.destroy
-        redirect_to admin_categories_path, notice: "Categoría eliminada."
+        redirect_to admin_categories_path,
+          notice: "Categoría eliminada."
       else
-        redirect_to admin_categories_path, alert: "No se puede eliminar: tiene noticias asociadas."
+        redirect_to admin_categories_path,
+          alert: "No se puede eliminar: tiene noticias asociadas."
       end
     end
 
@@ -50,5 +62,6 @@ module Admin
     def category_params
       params.require(:category).permit(:name)
     end
+
   end
 end

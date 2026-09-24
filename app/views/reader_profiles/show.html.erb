@@ -1,0 +1,104 @@
+
+<div class="portal-home">
+
+  <!-- ENCABEZADO -->
+  <header class="portal-header">
+
+    <div class="portal-header-content">
+
+      <%= link_to root_path, class: "portal-logo" do %>
+        <span class="portal-logo-icon">N.</span>
+        <span>PORTAL <strong>NOTICIAS</strong></span>
+      <% end %>
+
+      <nav class="portal-nav">
+        <%= link_to "Inicio", root_path %>
+        <%= link_to "Últimas noticias",
+            root_path(anchor: "ultimas-noticias") %>
+      </nav>
+
+      <div class="portal-user-menu">
+
+        <span class="portal-user-name">
+          Hola, <%= current_reader.name %>
+        </span>
+
+        <%= button_to "Cerrar sesión",
+            reader_logout_path,
+            method: :delete,
+            class: "portal-admin-btn" %>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- PERFIL DEL LECTOR -->
+  <main class="portal-profile-container">
+
+    <div class="portal-profile-card">
+
+      <!-- PRESENTACIÓN -->
+      <div class="portal-profile-heading">
+
+        <div class="portal-profile-avatar">
+          <%= @reader.name.first.upcase %>
+        </div>
+
+        <span class="portal-category">
+          MI CUENTA
+        </span>
+
+        <h1>Mi perfil</h1>
+
+        <p>
+          Bienvenido a tu espacio personal
+          en el Portal de Noticias.
+        </p>
+
+      </div>
+
+      <!-- DATOS PERSONALES -->
+      <div class="portal-profile-section">
+
+        <h2>Información personal</h2>
+
+        <div class="portal-profile-field">
+          <span>Nombre completo</span>
+          <strong><%= @reader.name %></strong>
+        </div>
+
+        <div class="portal-profile-field">
+          <span>Correo electrónico</span>
+          <strong><%= @reader.email %></strong>
+        </div>
+
+        <div class="portal-profile-field">
+          <span>Tipo de cuenta</span>
+          <strong>Lector</strong>
+        </div>
+
+        <div class="portal-profile-field">
+          <span>Miembro desde</span>
+          <strong>
+            <%= @reader.created_at.strftime("%d/%m/%Y") %>
+          </strong>
+        </div>
+
+      </div>
+
+      <!-- ACCESOS -->
+      <div class="portal-profile-actions">
+
+        <%= link_to "← Volver al portal",
+            root_path,
+            class: "portal-read-btn" %>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>

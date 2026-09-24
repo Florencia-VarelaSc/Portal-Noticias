@@ -1,0 +1,274 @@
+
+<div class="portal-home">
+
+  <!-- ENCABEZADO -->
+  <header class="portal-header">
+    <div class="portal-header-content">
+
+      <%= link_to root_path, class: "portal-logo" do %>
+        <span class="portal-logo-icon">N.</span>
+        <span>PORTAL <strong>NOTICIAS</strong></span>
+      <% end %>
+
+      <nav class="portal-nav">
+        <%= link_to "Inicio", root_path %>
+
+        <%= link_to "Últimas noticias",
+            root_path(anchor: "ultimas-noticias") %>
+      </nav>
+
+      <%= link_to "Administración",
+          admin_login_path,
+          class: "portal-admin-btn" %>
+
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="portal-container">
+
+    <article class="portal-article">
+
+      <!-- NAVEGACIÓN -->
+      <div class="portal-article-breadcrumb">
+
+        <%= link_to "Inicio", root_path %>
+
+        <span>/</span>
+
+        <span>
+          <%= @noticia.category.name %>
+        </span>
+
+      </div>
+
+      <!-- CATEGORÍA -->
+      <span class="portal-category">
+        <%= @noticia.category.name.upcase %>
+      </span>
+
+      <!-- TÍTULO -->
+      <h1 class="portal-article-title">
+        <%= @noticia.title %>
+      </h1>
+
+      <!-- FECHA DE PUBLICACIÓN -->
+      <div class="portal-article-meta">
+
+        <span>
+          Publicado el
+          <%= @noticia.published_at.strftime("%d/%m/%Y") %>
+        </span>
+
+      </div>
+<!-- BOTÓN DE FAVORITOS -->
+<div class="portal-article-favorite">
+
+  <% if reader_logged_in? %>
+
+    <% favorito = current_reader.favorites.find_by(
+         news_article_id: @noticia.id
+       ) %>
+
+    <% if favorito.present? %>
+
+      <%= button_to "♥ Quitar de favoritos",
+          reader_favorite_path(favorito),
+          method: :delete,
+          class: "portal-favorite-btn active" %>
+
+    <% else %>
+
+      <%= button_to "♡ Guardar en favoritos",
+          reader_favorites_path,
+          method: :post,
+          params: { news_article_id: @noticia.id },
+          class: "portal-favorite-btn" %>
+
+    <% end %>
+
+  <% else %>
+
+    <%= link_to "♡ Iniciá sesión para guardar esta noticia",
+        reader_login_path,
+        class: "portal-favorite-btn" %>
+
+  <% end %>
+
+</div>
+      <!-- IMAGEN DE PORTADA -->
+      <% if @noticia.cover_image.attached? %>
+
+        <div class="portal-article-image">
+
+          <%= image_tag @noticia.cover_image,
+              alt: @noticia.title %>
+
+        </div>
+
+      <% end %>
+
+      <!-- CONTENIDO COMPLETO -->
+      <div class="portal-article-body">
+
+        <%= simple_format(@noticia.body) %>
+
+      </div>
+    <!-- ======================================
+     COMENTARIOS DE LA NOTICIA
+====================================== -->
+
+<section id="comentarios" class="portal-comments">
+
+  <div class="portal-comments-heading">
+
+    <span class="portal-category">
+      PARTICIPÁ EN LA CONVERSACIÓN
+    </span>
+
+    <h2>
+      Comentarios (<%= @comentarios.size %>)
+    </h2>
+
+    <p>
+      Compartí tu opinión sobre esta noticia.
+    </p>
+
+  </div>
+
+  <!-- FORMULARIO PARA COMENTAR -->
+
+  <% if reader_logged_in? %>
+
+    <div class="portal-comment-form">
+
+      <h3>Dejá tu comentario</h3>
+
+      <p>
+        Comentando como
+        <strong><%= current_reader.name %></strong>
+      </p>
+
+      <%= form_with model: @comentario,
+          url: news_article_reader_comments_path(@noticia),
+          local: true do |f| %>
+
+        <%= f.text_area :body,
+            placeholder: "Escribí tu comentario...",
+            rows: 4,
+            required: true,
+            class: "portal-comment-textarea" %>
+
+        <%= f.submit "Publicar comentario",
+            class: "portal-auth-submit" %>
+
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+    <div class="portal-comment-login">
+
+      <p>
+        Para participar en la conversación,
+        necesitás iniciar sesión.
+      </p>
+
+      <%= link_to "Iniciar sesión",
+          reader_login_path,
+          class: "portal-read-btn" %>
+
+    </div>
+
+  <% end %>
+
+  <!-- LISTADO DE COMENTARIOS -->
+
+  <div class="portal-comments-list">
+
+    <% if @comentarios.any? %>
+
+      <% @comentarios.each do |comentario| %>
+
+        <div class="portal-comment-card">
+
+          <div class="portal-comment-avatar">
+            <%= comentario.user.name.first.upcase %>
+          </div>
+
+          <div class="portal-comment-content">
+
+            <div class="portal-comment-meta">
+
+              <strong>
+                <%= comentario.user.name %>
+              </strong>
+
+              <span>
+                <%= comentario.created_at.strftime("%d/%m/%Y %H:%M") %>
+              </span>
+
+            </div>
+
+            <p>
+              <%= comentario.body %>
+            </p>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    <% else %>
+
+      <div class="portal-comments-empty">
+
+        <p>
+          Todavía no hay comentarios en esta noticia.
+          ¡Sé el primero en participar!
+        </p>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>
+
+
+      <!-- VOLVER A LA PORTADA -->
+      <div class="portal-article-back">
+
+        <%= link_to "← Volver a todas las noticias",
+            root_path,
+            class: "portal-read-btn" %>
+
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="portal-footer">
+
+    <div class="portal-footer-content">
+
+      <div>
+        <h3>PORTAL NOTICIAS</h3>
+        <p>Información que conecta.</p>
+      </div>
+
+      <p>
+        © <%= Date.current.year %> Portal de Noticias.
+        Todos los derechos reservados.
+      </p>
+
+    </div>
+
+  </footer>
+
+</div>

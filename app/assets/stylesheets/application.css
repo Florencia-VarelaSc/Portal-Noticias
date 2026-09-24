@@ -1,10 +1,1304 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+
+/* ==========================================
+   PORTAL DE NOTICIAS - PÁGINA PRINCIPAL
+========================================== */
+
+.portal-home {
+  --portal-bordo: #781d36;
+  --portal-bordo-oscuro: #511126;
+  --portal-rosa: #f8edf1;
+  --portal-texto: #24212a;
+  --portal-gris: #74717a;
+
+  background: #faf9f8;
+  color: var(--portal-texto);
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.portal-home * {
+  box-sizing: border-box;
+}
+
+.portal-home a {
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+/* ==========================================
+   ENCABEZADO
+========================================== */
+
+.portal-header {
+  background: var(--portal-bordo);
+  color: white;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+}
+
+.portal-header-content {
+  max-width: 1250px;
+  margin: auto;
+  padding: 22px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.portal-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.portal-logo:hover {
+  color: white;
+}
+
+.portal-logo-icon {
+  background: white;
+  color: var(--portal-bordo);
+  width: 43px;
+  height: 43px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.portal-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.portal-nav a {
+  color: #f4e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+.portal-nav a:hover,
+.portal-nav .portal-nav-active {
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+.portal-admin-btn {
+  background: white;
+  color: var(--portal-bordo);
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.portal-admin-btn:hover {
+  background: var(--portal-rosa);
+  color: var(--portal-bordo-oscuro);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+========================================== */
+
+.portal-container {
+  max-width: 1250px;
+  margin: auto;
+  padding: 0 30px;
+}
+
+/* ==========================================
+   PRESENTACIÓN
+========================================== */
+
+.portal-welcome {
+  padding: 65px 0 45px;
+}
+
+.portal-date {
+  color: var(--portal-bordo);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.portal-welcome h1 {
+  font-size: clamp(32px, 4vw, 49px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  margin: 0 0 18px;
+  color: var(--portal-texto);
+}
+
+.portal-welcome p {
+  color: var(--portal-gris);
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ==========================================
+   NOTICIA DESTACADA
+========================================== */
+
+.portal-featured {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.06);
+  min-height: 390px;
+}
+
+.portal-featured-image {
+  position: relative;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(45, 9, 23, 0.25),
+      rgba(120, 29, 54, 0.35)
+    ),
+    url("https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1400&q=85");
+
+  background-size: cover;
+  background-position: center;
+  min-height: 340px;
+}
+
+.portal-featured-label {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: var(--portal-bordo);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.portal-featured-content {
+  padding: 50px 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.portal-category {
+  color: var(--portal-bordo);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.portal-featured-content h2 {
+  font-size: clamp(25px, 3vw, 35px);
+  line-height: 1.25;
+  margin: 20px 0;
+  font-weight: 800;
+  color: var(--portal-texto);
+}
+
+.portal-featured-content p {
+  color: var(--portal-gris);
+  line-height: 1.8;
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
+.portal-read-btn {
+  background: var(--portal-bordo);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.portal-read-btn:hover {
+  background: var(--portal-bordo-oscuro);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   ÚLTIMAS NOTICIAS
+========================================== */
+
+.portal-news-section {
+  padding: 75px 0 90px;
+}
+
+.portal-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.portal-section-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--portal-bordo);
+}
+
+.portal-section-heading h2 {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 8px 0 0;
+  color: var(--portal-texto);
+}
+
+.portal-section-line {
+  flex: 1;
+  height: 1px;
+  background: #e8e1e4;
+  margin-top: 20px;
+}
+
+/* ==========================================
+   TARJETAS DE NOTICIAS
+========================================== */
+
+.portal-news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.portal-news-card {
+  background: white;
+  border-radius: 13px;
+  overflow: hidden;
+  border: 1px solid #eee9eb;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.025);
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.portal-news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(81, 17, 38, 0.1);
+}
+
+.portal-news-image {
+  height: 205px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portal-news-image-tech {
+  background:
+    linear-gradient(rgba(50, 15, 45, 0.1), rgba(50, 15, 45, 0.25)),
+    url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=85");
+  background-size: cover;
+  background-position: center;
+}
+
+.portal-news-image-sports {
+  background:
+    linear-gradient(rgba(50, 15, 45, 0.1), rgba(50, 15, 45, 0.25)),
+    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=85");
+  background-size: cover;
+  background-position: center;
+}
+
+.portal-news-image-world {
+  background:
+    linear-gradient(rgba(50, 15, 45, 0.1), rgba(50, 15, 45, 0.25)),
+    url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=800&q=85");
+  background-size: cover;
+  background-position: center;
+}
+
+.portal-image-icon {
+  display: none;
+}
+
+.portal-news-content {
+  padding: 25px;
+}
+
+.portal-news-content h3 {
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 12px 0;
+  font-weight: 750;
+  color: var(--portal-texto);
+}
+
+.portal-news-content p {
+  color: var(--portal-gris);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ==========================================
+   PIE DE PÁGINA
+========================================== */
+
+.portal-footer {
+  background: var(--portal-bordo-oscuro);
+  color: white;
+}
+
+.portal-footer-content {
+  max-width: 1250px;
+  margin: auto;
+  padding: 45px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.portal-footer h3 {
+  font-size: 19px;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+
+.portal-footer p {
+  font-size: 13px;
+  color: #e9cbd5;
+  margin: 0;
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+  .portal-header-content {
+    flex-wrap: wrap;
+  }
+
+  .portal-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .portal-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-featured-image {
+    min-height: 300px;
+  }
+
+  .portal-featured-content {
+    padding: 35px;
+  }
+
+  .portal-news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .portal-header-content {
+    padding: 18px 20px;
+    gap: 18px;
+  }
+
+  .portal-logo {
+    font-size: 16px;
+  }
+
+  .portal-logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 21px;
+  }
+
+  .portal-admin-btn {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .portal-nav {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .portal-nav a {
+    font-size: 12px;
+  }
+
+  .portal-container {
+    padding: 0 18px;
+  }
+
+  .portal-welcome {
+    padding: 40px 0 30px;
+  }
+
+  .portal-welcome h1 {
+    font-size: 32px;
+  }
+
+  .portal-featured-image {
+    min-height: 230px;
+  }
+
+  .portal-featured-content {
+    padding: 28px 22px;
+  }
+
+  .portal-featured-content h2 {
+    font-size: 25px;
+  }
+
+  .portal-news-section {
+    padding: 50px 0;
+  }
+
+  .portal-section-heading h2 {
+    font-size: 25px;
+  }
+
+  .portal-news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 35px 20px;
+  }
+
+}
+
+/* ==========================================
+   CORRECCIÓN - NOTICIA INDIVIDUAL
+========================================== */
+
+/* Evitar desbordamiento horizontal */
+
+.portal-home {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.portal-home .portal-container {
+  width: 100%;
+  max-width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* Contenedor de la noticia */
+
+.portal-home .portal-article {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 55px 0 90px;
+}
+
+/* Navegación */
+
+.portal-article-breadcrumb {
+  margin-bottom: 30px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Título */
+
+.portal-home .portal-article-title {
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.25;
+  font-weight: 800;
+  color: #24212a;
+  margin: 18px 0 25px;
+  overflow-wrap: anywhere;
+}
+
+/* Fecha */
+
+.portal-article-meta {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e1e4;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Imagen principal */
+
+.portal-home .portal-article-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 40px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.portal-home .portal-article-image img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Contenido de la noticia */
+
+.portal-home .portal-article-body {
+  width: 100%;
+  max-width: 100%;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #3a3540;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.portal-home .portal-article-body p {
+  margin: 0 0 22px;
+}
+
+/* Botón volver */
+
+.portal-article-back {
+  margin-top: 45px;
+  padding-top: 30px;
+  border-top: 1px solid #e8e1e4;
+}
+
+/* ==========================================
+   ADAPTACIÓN A CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  .portal-home .portal-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .portal-home .portal-article {
+    padding: 35px 0 60px;
+  }
+
+  .portal-home .portal-article-title {
+    font-size: 29px;
+  }
+
+  .portal-home .portal-article-image img {
+    max-height: 280px;
+  }
+
+  .portal-home .portal-article-body {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+}
+
+/* ==========================================
+   PORTAL DE NOTICIAS - REGISTRO Y LOGIN
+========================================== */
+
+.portal-auth-container {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 65px 20px;
+  background: #faf9f8;
+}
+
+.portal-auth-card {
+  width: 100%;
+  max-width: 470px;
+  padding: 45px;
+  background: white;
+  border: 1px solid #eee9eb;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(81, 17, 38, 0.07);
+}
+
+.portal-auth-heading {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.portal-auth-heading h1 {
+  color: #24212a;
+  font-size: 30px;
+  font-weight: 800;
+  margin: 12px 0;
+}
+
+.portal-auth-heading p {
+  color: #74717a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.portal-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.portal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.portal-form-group label {
+  color: #3a3540;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.portal-form-group input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #e2dce0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  color: #24212a;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.portal-form-group input:focus {
+  border-color: #781d36;
+  box-shadow: 0 0 0 3px rgba(120, 29, 54, 0.08);
+}
+
+.portal-auth-submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  background: #781d36;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.portal-auth-submit:hover {
+  background: #511126;
+}
+
+.portal-auth-footer {
+  text-align: center;
+  margin-top: 28px;
+  padding-top: 25px;
+  border-top: 1px solid #eee9eb;
+  font-size: 13px;
+  color: #74717a;
+}
+
+.portal-auth-footer a {
+  color: #781d36;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.portal-auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.portal-auth-errors {
+  background: #fff0f1;
+  border: 1px solid #f3c4cc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 25px;
+  color: #a12040;
+  font-size: 13px;
+}
+
+.portal-auth-errors ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+}
+
+@media (max-width: 600px) {
+  .portal-auth-container {
+    padding: 35px 15px;
+  }
+
+  .portal-auth-card {
+    padding: 30px 22px;
+  }
+
+  .portal-auth-heading h1 {
+    font-size: 26px;
+  }
+}
+
+
+
+/* ==========================================
+   MENÚ DE USUARIOS - PORTAL PÚBLICO
+========================================== */
+
+.portal-user-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.portal-user-name {
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.portal-user-menu form {
+  margin: 0;
+}
+
+.portal-user-menu .portal-admin-btn {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+
+  .portal-user-menu {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .portal-user-name {
+    width: 100%;
+    text-align: center;
+  }
+
+}
+
+/* ==========================================
+   ENCABEZADO - DISTRIBUCIÓN CORREGIDA
+========================================== */
+
+.portal-header {
+  width: 100%;
+  background: #781d36;
+}
+
+.portal-header-content {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 15px 30px;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 25px;
+}
+
+/* LOGO */
+
+.portal-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.portal-logo-icon {
+  flex-shrink: 0;
+}
+
+/* NAVEGACIÓN */
+
+.portal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  width: auto;
+  white-space: nowrap;
+}
+
+/* ACCESO DE USUARIOS */
+
+.portal-user-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  justify-self: end;
+  gap: 10px;
+  width: auto;
+  flex-wrap: nowrap;
+}
+
+.portal-user-name {
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.portal-user-menu form {
+  margin: 0;
+}
+
+.portal-user-menu .portal-admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 11px 15px;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.2;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+/* ==========================================
+   TABLETS
+========================================== */
+
+@media (max-width: 1000px) {
+
+  .portal-header-content {
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+  }
+
+  .portal-logo {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .portal-user-menu {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .portal-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  .portal-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 15px;
+  }
+
+  .portal-logo {
+    justify-content: center;
+  }
+
+  .portal-nav {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .portal-nav a {
+    font-size: 12px;
+  }
+
+  .portal-user-menu {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .portal-user-name {
+    width: 100%;
+    text-align: center;
+  }
+
+}
+
+/* ==========================================
+   PORTAL DE NOTICIAS - MI PERFIL
+========================================== */
+
+.portal-profile-container {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 65px 20px;
+  background: #faf9f8;
+}
+
+.portal-profile-card {
+  width: 100%;
+  max-width: 650px;
+  background: white;
+  border: 1px solid #eee9eb;
+  border-radius: 16px;
+  padding: 45px;
+  box-shadow: 0 12px 40px rgba(81, 17, 38, 0.07);
+}
+
+.portal-profile-heading {
+  text-align: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee9eb;
+}
+
+.portal-profile-avatar {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #781d36;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.portal-profile-heading h1 {
+  font-size: 30px;
+  color: #24212a;
+  margin: 12px 0;
+}
+
+.portal-profile-heading p {
+  color: #74717a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.portal-profile-section {
+  padding: 30px 0;
+}
+
+.portal-profile-section h2 {
+  font-size: 20px;
+  color: #24212a;
+  margin-bottom: 25px;
+}
+
+.portal-profile-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0ebed;
+  font-size: 14px;
+}
+
+.portal-profile-field span {
+  color: #74717a;
+}
+
+.portal-profile-field strong {
+  color: #24212a;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.portal-profile-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+
+  .portal-profile-container {
+    padding: 35px 15px;
+  }
+
+  .portal-profile-card {
+    padding: 30px 22px;
+  }
+
+  .portal-profile-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .portal-profile-field strong {
+    text-align: left;
+  }
+
+}
+
+/* ==========================================
+   BOTÓN DE FAVORITOS
+========================================== */
+
+.portal-article-favorite {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 30px;
+}
+
+.portal-article-favorite form {
+  margin: 0;
+}
+
+.portal-favorite-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  background: white;
+  color: #781d36;
+  border: 1px solid #781d36;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.portal-favorite-btn:hover {
+  background: #781d36;
+  color: white;
+}
+
+.portal-favorite-btn.active {
+  background: #781d36;
+  color: white;
+}
+
+.portal-favorite-btn.active:hover {
+  background: #511126;
+}
+
+/* ==========================================
+   PORTAL DE NOTICIAS - COMENTARIOS
+========================================== */
+
+.portal-comments {
+  margin-top: 60px;
+  padding-top: 35px;
+  border-top: 1px solid #eee9eb;
+}
+
+.portal-comments-heading {
+  margin-bottom: 30px;
+}
+
+.portal-comments-heading h2 {
+  font-size: 26px;
+  color: #24212a;
+  margin: 12px 0;
+}
+
+.portal-comments-heading p {
+  color: #74717a;
+  font-size: 14px;
+}
+
+/* FORMULARIO */
+
+.portal-comment-form {
+  background: #faf9f8;
+  padding: 25px;
+  border: 1px solid #eee9eb;
+  border-radius: 12px;
+  margin-bottom: 35px;
+}
+
+.portal-comment-form h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: #24212a;
+}
+
+.portal-comment-form p {
+  font-size: 13px;
+  color: #74717a;
+  margin-bottom: 20px;
+}
+
+.portal-comment-textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 15px;
+  border: 1px solid #e2dce0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.portal-comment-textarea:focus {
+  border-color: #781d36;
+  box-shadow: 0 0 0 3px rgba(120, 29, 54, 0.08);
+}
+
+.portal-comment-form .portal-auth-submit {
+  width: auto;
+  margin-top: 15px;
+  padding: 12px 25px;
+}
+
+/* INICIAR SESIÓN */
+
+.portal-comment-login {
+  padding: 25px;
+  background: #faf9f8;
+  border-radius: 12px;
+  margin-bottom: 35px;
+}
+
+.portal-comment-login p {
+  margin-bottom: 20px;
+}
+
+/* LISTADO */
+
+.portal-comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.portal-comment-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #eee9eb;
+  border-radius: 12px;
+}
+
+.portal-comment-avatar {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  background: #781d36;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.portal-comment-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.portal-comment-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.portal-comment-meta strong {
+  color: #24212a;
+}
+
+.portal-comment-meta span {
+  color: #888;
+  font-size: 12px;
+}
+
+.portal-comment-content p {
+  margin: 0;
+  color: #3a3540;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.portal-comments-empty {
+  padding: 25px;
+  text-align: center;
+  color: #74717a;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .portal-comment-form {
+    padding: 18px;
+  }
+
+  .portal-comment-card {
+    padding: 15px;
+    gap: 10px;
+  }
+}

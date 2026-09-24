@@ -1,0 +1,57 @@
+
+<div class="portal-home">
+
+  <main class="portal-profile-container">
+
+    <div class="portal-profile-card">
+
+      <h1>Mis noticias favoritas</h1>
+
+      <p>
+        Hola, <%= current_reader.name %>.
+        Estas son las noticias que guardaste.
+      </p>
+
+      <% if @favoritos.any? %>
+
+        <% @favoritos.each do |favorito| %>
+
+          <div class="portal-profile-field">
+
+            <div>
+              <strong>
+                <%= favorito.news_article.title %>
+              </strong>
+
+              <p>
+                <%= favorito.news_article.category.name %>
+              </p>
+            </div>
+
+            <%= link_to "Leer noticia",
+                news_article_path(favorito.news_article) %>
+
+            <%= button_to "Eliminar",
+                reader_favorite_path(favorito),
+                method: :delete %>
+
+          </div>
+
+        <% end %>
+
+      <% else %>
+
+        <p>
+          Todavía no guardaste ninguna noticia
+          como favorita.
+        </p>
+
+      <% end %>
+
+      <%= link_to "Volver al portal", root_path %>
+
+    </div>
+
+  </main>
+
+</div>

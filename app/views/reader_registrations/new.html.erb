@@ -1,0 +1,136 @@
+
+<div class="portal-home">
+
+  <!-- ENCABEZADO -->
+  <header class="portal-header">
+
+    <div class="portal-header-content">
+
+      <%= link_to root_path, class: "portal-logo" do %>
+        <span class="portal-logo-icon">N.</span>
+        <span>PORTAL <strong>NOTICIAS</strong></span>
+      <% end %>
+
+      <nav class="portal-nav">
+        <%= link_to "Inicio", root_path %>
+      </nav>
+
+      <%= link_to "Ingresar",
+          reader_login_path,
+          class: "portal-admin-btn" %>
+
+    </div>
+
+  </header>
+
+  <!-- FORMULARIO DE REGISTRO -->
+  <main class="portal-auth-container">
+
+    <div class="portal-auth-card">
+
+      <div class="portal-auth-heading">
+
+        <span class="portal-category">
+          UNITE A NUESTRA COMUNIDAD
+        </span>
+
+        <h1>Crear una cuenta</h1>
+
+        <p>
+          Registrate para comentar noticias,
+          guardar tus favoritas y disfrutar
+          de una experiencia personalizada.
+        </p>
+
+      </div>
+
+      <!-- ERRORES DE VALIDACIÓN -->
+      <% if @user.errors.any? %>
+
+        <div class="portal-auth-errors">
+
+          <strong>
+            No pudimos crear tu cuenta:
+          </strong>
+
+          <ul>
+            <% @user.errors.full_messages.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+
+        </div>
+
+      <% end %>
+
+      <!-- FORMULARIO -->
+      <%= form_with model: @user,
+          url: reader_register_path,
+          local: true,
+          class: "portal-auth-form" do |f| %>
+
+        <div class="portal-form-group">
+
+          <%= f.label :name, "Nombre completo" %>
+
+          <%= f.text_field :name,
+              placeholder: "Ingresá tu nombre",
+              required: true,
+              autocomplete: "name" %>
+
+        </div>
+
+        <div class="portal-form-group">
+
+          <%= f.label :email, "Correo electrónico" %>
+
+          <%= f.email_field :email,
+              placeholder: "ejemplo@correo.com",
+              required: true,
+              autocomplete: "email" %>
+
+        </div>
+
+        <div class="portal-form-group">
+
+          <%= f.label :password, "Contraseña" %>
+
+          <%= f.password_field :password,
+              placeholder: "Mínimo 6 caracteres",
+              required: true,
+              minlength: 6,
+              autocomplete: "new-password" %>
+
+        </div>
+
+        <div class="portal-form-group">
+
+          <%= f.label :password_confirmation,
+              "Confirmar contraseña" %>
+
+          <%= f.password_field :password_confirmation,
+              placeholder: "Repetí tu contraseña",
+              required: true,
+              autocomplete: "new-password" %>
+
+        </div>
+
+        <%= f.submit "Crear mi cuenta",
+            class: "portal-auth-submit" %>
+
+      <% end %>
+
+      <div class="portal-auth-footer">
+
+        ¿Ya tenés una cuenta?
+
+        <%= link_to "Iniciá sesión",
+            reader_login_path %>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>

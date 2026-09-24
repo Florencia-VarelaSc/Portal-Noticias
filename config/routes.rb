@@ -40,6 +40,46 @@ Rails.application.routes.draw do
     end
   end
 
-  # Defines the root path route ("/")
+    # Página principal
   root "home#index"
+
+  
+# Noticias públicas y comentarios de lectores
+resources :news_articles, only: [:show] do
+  resources :reader_comments,
+            only: [:create],
+            path: "comentarios"
+end
+
+  # Registro de lectores
+  get "registro", to: "reader_registrations#new",
+      as: :reader_register
+
+  post "registro", to: "reader_registrations#create"
+
+  # Inicio y cierre de sesión de lectores
+  get "ingresar", to: "reader_sessions#new",
+      as: :reader_login
+
+  post "ingresar", to: "reader_sessions#create"
+
+  delete "salir", to: "reader_sessions#destroy",
+      as: :reader_logout
+
+  # Perfil del lector
+  get "mi-perfil", to: "reader_profiles#show",
+    as: :reader_profile
+  
+# Favoritos del lector
+get "mis-favoritos",
+    to: "reader_favorites#index",
+    as: :reader_favorites
+
+post "mis-favoritos",
+     to: "reader_favorites#create"
+
+delete "mis-favoritos/:id",
+       to: "reader_favorites#destroy",
+       as: :reader_favorite
+
 end

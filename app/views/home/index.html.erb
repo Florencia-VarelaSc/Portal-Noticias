@@ -1,3 +1,271 @@
-<h1>Portal de Noticias</h1>
-<p>Sistema de publicaciones para administradores, periodistas y lectores.</p>
-<%= link_to "Ingresar al back-office", admin_login_path, class: "btn" %>
+
+<div class="portal-home">
+
+
+<!-- ENCABEZADO -->
+<header class="portal-header">
+
+  <div class="portal-header-content">
+
+    <!-- LOGO -->
+    <%= link_to root_path, class: "portal-logo" do %>
+      <span class="portal-logo-icon">N.</span>
+      <span>PORTAL <strong>NOTICIAS</strong></span>
+    <% end %>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="portal-nav">
+
+      <%= link_to "Inicio", root_path,
+          class: "portal-nav-active" %>
+
+      <%= link_to "Destacadas",
+          root_path(anchor: "destacadas") %>
+
+      <%= link_to "Últimas noticias",
+          root_path(anchor: "ultimas-noticias") %>
+
+    </nav>
+
+    <!-- ACCESO DE USUARIOS -->
+    <div class="portal-user-menu">
+
+      <% if reader_logged_in? %>
+      <%= link_to "Mi perfil",
+        reader_profile_path,
+        class: "portal-admin-btn" %>
+    
+            <%= link_to "♡ Mis favoritos",
+            reader_favorites_path,
+        class: "portal-admin-btn" %>
+
+        <span class="portal-user-name">
+          Hola, <%= current_reader.name %>
+        </span>
+
+        <%= button_to "Cerrar sesión",
+            reader_logout_path,
+            method: :delete,
+            class: "portal-admin-btn" %>
+
+      <% else %>
+
+        <%= link_to "Ingresar",
+            reader_login_path,
+            class: "portal-admin-btn" %>
+
+        <%= link_to "Registrarse",
+            reader_register_path,
+            class: "portal-admin-btn" %>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+</header>
+
+  <!-- PORTADA PRINCIPAL -->
+  <main class="portal-container">
+
+    <section class="portal-welcome">
+
+      <div class="portal-date">
+        <%= l(Date.current, format: :long) %>
+      </div>
+
+      <h1>La información que importa.</h1>
+
+      <p>
+        Actualidad, tecnología, deportes y mucho más.
+        Todas las noticias en un solo lugar.
+      </p>
+
+    </section>
+
+    <!-- NOTICIA DESTACADA -->
+    <section id="destacadas" class="portal-featured">
+
+      <!-- IMAGEN DESTACADA -->
+      <div class="portal-featured-image"
+           <% if @noticia_destacada&.cover_image&.attached? %>
+             style="background-image: url('<%= url_for(@noticia_destacada.cover_image) %>');"
+           <% end %>>
+
+        <span class="portal-featured-label">
+          NOTICIA DESTACADA
+        </span>
+
+      </div>
+
+      <!-- CONTENIDO DESTACADO -->
+      <div class="portal-featured-content">
+
+        <% if @noticia_destacada.present? %>
+
+          <span class="portal-category">
+            <%= @noticia_destacada.category.name.upcase %>
+          </span>
+
+          <h2>
+            <%= @noticia_destacada.title %>
+          </h2>
+
+          <p>
+            <%= truncate(@noticia_destacada.body, length: 180) %>
+          </p>
+
+          <%= link_to "Leer noticia completa →",
+              news_article_path(@noticia_destacada),
+              class: "portal-read-btn" %>
+
+        <% else %>
+
+          <!-- CONTENIDO CUANDO NO HAY NOTICIAS -->
+          <span class="portal-category">
+            ACTUALIDAD
+          </span>
+
+          <h2>
+            Las noticias más importantes del día,
+            en un solo lugar.
+          </h2>
+
+          <p>
+            Descubrí las últimas novedades y mantenete
+            informado con nuestro portal de noticias.
+          </p>
+
+          <a href="#ultimas-noticias" class="portal-read-btn">
+            Explorar noticias →
+          </a>
+
+        <% end %>
+
+      </div>
+
+    </section>
+
+    <!-- ÚLTIMAS NOTICIAS -->
+    <section id="ultimas-noticias" class="portal-news-section">
+
+      <div class="portal-section-heading">
+
+        <div>
+          <span class="portal-section-label">
+            MANTENETE INFORMADO
+          </span>
+
+          <h2>Últimas noticias</h2>
+        </div>
+
+        <span class="portal-section-line"></span>
+
+      </div>
+
+      <!-- TARJETAS DE NOTICIAS -->
+      <div class="portal-news-grid">
+
+        <% if @ultimas_noticias.any? %>
+
+          <% @ultimas_noticias.each do |noticia| %>
+
+            <article class="portal-news-card">
+
+              <!-- IMAGEN -->
+              <%= link_to news_article_path(noticia) do %>
+
+                <% if noticia.cover_image.attached? %>
+
+                  <%= image_tag noticia.cover_image,
+                      class: "portal-news-image",
+                      alt: noticia.title %>
+
+                <% else %>
+
+                  <div class="portal-news-image portal-news-image-world">
+                    <span class="portal-image-icon">📰</span>
+                  </div>
+
+                <% end %>
+
+              <% end %>
+
+              <!-- CONTENIDO -->
+              <div class="portal-news-content">
+
+                <span class="portal-category">
+                  <%= noticia.category.name.upcase %>
+                </span>
+
+                <h3>
+                  <%= link_to noticia.title,
+                      news_article_path(noticia),
+                      class: "portal-news-title-link" %>
+                </h3>
+
+                <p>
+                  <%= truncate(noticia.body, length: 120) %>
+                </p>
+
+                <div class="portal-news-footer">
+
+                  <span class="portal-news-date">
+                    <%= noticia.published_at.strftime("%d/%m/%Y") %>
+                  </span>
+
+                  <%= link_to "Leer más →",
+                      news_article_path(noticia),
+                      class: "portal-news-read-more" %>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          <% end %>
+
+        <% else %>
+
+          <!-- MENSAJE CUANDO NO HAY MÁS NOTICIAS -->
+          <div class="portal-news-empty">
+
+            <h3>Próximamente más noticias</h3>
+
+            <p>
+              Todavía no hay más noticias publicadas.
+              ¡Volvé pronto para descubrir las novedades!
+            </p>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="portal-footer">
+
+    <div class="portal-footer-content">
+
+      <div>
+        <h3>PORTAL NOTICIAS</h3>
+        <p>Información que conecta.</p>
+      </div>
+
+      <p>
+        © <%= Date.current.year %> Portal de Noticias.
+        Todos los derechos reservados.
+      </p>
+
+    </div>
+
+  </footer>
+
+</div>

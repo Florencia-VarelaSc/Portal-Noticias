@@ -1,6 +1,11 @@
+
 module Admin
   class UsersController < Admin::BaseController
-    before_action :set_user, only: [ :edit, :update ]
+
+    # Solo los administradores pueden gestionar usuarios.
+    before_action :require_admin_role
+
+    before_action :set_user, only: [:edit, :update]
 
     def index
       @users = User.order(:name)
@@ -10,10 +15,16 @@ module Admin
     end
 
     def update
-      if @user.update(active: params[:user][:active])
-        redirect_to admin_users_path, notice: "Usuario actualizado."
+      if @user.update(active: params.require(:user).fetch(:active, false))
+
+        redirect_to admin_users_path,
+          notice: "Usuario actualizado."
+
       else
-        render :edit, status: :unprocessable_entity
+
+        render :edit,
+          status: :unprocessable_entity
+
       end
     end
 
@@ -22,5 +33,6 @@ module Admin
     def set_user
       @user = User.find(params[:id])
     end
+
   end
 end

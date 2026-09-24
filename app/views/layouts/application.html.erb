@@ -1,57 +1,34 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
   <head>
-    <title>Portal de noticias</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Portal de Noticias</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-      * { box-sizing: border-box; }
-      body {
-        font-family: "Inter", -apple-system, sans-serif;
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #faf6f1;
-        color: #3a2e2e;
-      }
-      main {
-        background: #fffdfb;
-        padding: 3rem 3.5rem;
-        border: 1px solid #ecdfc8;
-        border-top: 3px solid #c9a15a;
-        text-align: center;
-        max-width: 440px;
-      }
-      h1 {
-        font-family: "Playfair Display", serif;
-        margin-top: 0;
-        font-size: 2rem;
-        color: #7d2c47;
-      }
-      p { color: #6b4a4a; }
-      a.btn {
-        display: inline-block;
-        margin-top: 1.3rem;
-        background: #7d2c47;
-        border: 1px solid #c9a15a;
-        color: #fdf6e8;
-        text-decoration: none;
-        padding: 0.75rem 1.8rem;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
-      a.btn:hover { background: #5c2035; }
-    </style>
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Hoja de estilos principal -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
   </head>
+
   <body>
-    <main>
-      <%= yield %>
-    </main>
+
+    <%= yield %>
+
   </body>
+
 </html>

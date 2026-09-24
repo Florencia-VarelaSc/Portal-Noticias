@@ -1,0 +1,108 @@
+
+<div class="portal-home">
+
+  <!-- ENCABEZADO -->
+  <header class="portal-header">
+
+    <div class="portal-header-content">
+
+      <%= link_to root_path, class: "portal-logo" do %>
+        <span class="portal-logo-icon">N.</span>
+        <span>PORTAL <strong>NOTICIAS</strong></span>
+      <% end %>
+
+      <nav class="portal-nav">
+
+        <%= link_to "Inicio", root_path %>
+
+      </nav>
+
+      <%= link_to "Registrarse",
+          reader_register_path,
+          class: "portal-admin-btn" %>
+
+    </div>
+
+  </header>
+
+  <!-- INICIO DE SESIÓN -->
+  <main class="portal-auth-container">
+
+    <div class="portal-auth-card">
+
+      <div class="portal-auth-heading">
+
+        <span class="portal-category">
+          BIENVENIDO NUEVAMENTE
+        </span>
+
+        <h1>Iniciar sesión</h1>
+
+        <p>
+          Ingresá a tu cuenta para comentar noticias,
+          guardar tus favoritas y disfrutar
+          de nuestro portal.
+        </p>
+
+      </div>
+
+      <!-- MENSAJE DE ERROR -->
+      <% if flash[:alert].present? %>
+
+        <div class="portal-auth-errors">
+
+          <%= flash[:alert] %>
+
+        </div>
+
+      <% end %>
+
+      <!-- FORMULARIO -->
+      <%= form_with url: reader_login_path,
+          method: :post,
+          local: true,
+          class: "portal-auth-form" do |f| %>
+
+        <div class="portal-form-group">
+
+          <%= f.label :email,
+              "Correo electrónico" %>
+
+          <%= f.email_field :email,
+              placeholder: "ejemplo@correo.com",
+              required: true,
+              autocomplete: "email" %>
+
+        </div>
+
+        <div class="portal-form-group">
+
+          <%= f.label :password,
+              "Contraseña" %>
+
+          <%= f.password_field :password,
+              placeholder: "Ingresá tu contraseña",
+              required: true,
+              autocomplete: "current-password" %>
+
+        </div>
+
+        <%= f.submit "Ingresar a mi cuenta",
+            class: "portal-auth-submit" %>
+
+      <% end %>
+
+      <div class="portal-auth-footer">
+
+        ¿Todavía no tenés una cuenta?
+
+        <%= link_to "Registrate acá",
+            reader_register_path %>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
