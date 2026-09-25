@@ -6,8 +6,21 @@ module Admin
       only: [:show, :edit, :update, :destroy, :publish, :archive]
 
     def index
-      @news_articles = NewsArticle.order(created_at: :desc)
-    end
+
+  if current_admin.admin?
+
+    # El administrador puede ver todas las noticias.
+    @news_articles = NewsArticle.order(created_at: :desc)
+
+  else
+
+    # El periodista solo ve sus propias noticias.
+    @news_articles = current_admin.news_articles
+      .order(created_at: :desc)
+
+  end
+
+end
 
     def show
     end

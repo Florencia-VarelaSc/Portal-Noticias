@@ -1,6 +1,58 @@
+
 <h1>Editar usuario: <%= @user.name %></h1>
+
 <%= form_with model: @user, url: admin_user_path(@user) do |f| %>
-  <%= f.label :active, "Activo" %>
-  <%= f.check_box :active %><br>
-  <%= f.submit "Guardar" %>
+
+  <!-- DATOS DEL USUARIO -->
+
+  <div class="admin-user-field">
+    <%= f.label :name, "Nombre" %>
+    <p><%= @user.name %></p>
+  </div>
+
+  <div class="admin-user-field">
+    <%= f.label :email, "Correo electrónico" %>
+    <p><%= @user.email %></p>
+  </div>
+
+  <!-- SELECCIÓN DE ROL -->
+
+  <div class="admin-user-field">
+
+    <%= f.label :role, "Rol del usuario" %>
+
+    <%= f.select :role,
+      [
+        ["Lector", "reader"],
+        ["Periodista", "journalist"],
+        ["Administrador", "admin"]
+      ],
+      {},
+      class: "admin-role-select" %>
+
+  </div>
+
+  <!-- ESTADO DEL USUARIO -->
+
+  <div class="admin-user-field">
+
+    <%= f.label :active, "Estado de la cuenta" %>
+
+    <div class="admin-user-checkbox">
+      <%= f.check_box :active %>
+      <span>Usuario activo</span>
+    </div>
+
+  </div>
+
+  <!-- GUARDAR -->
+
+  <div class="admin-user-actions">
+
+    <%= f.submit "Guardar cambios" %>
+
+    <%= link_to "Cancelar", admin_users_path %>
+
+  </div>
+
 <% end %>

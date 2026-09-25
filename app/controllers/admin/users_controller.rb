@@ -15,24 +15,27 @@ module Admin
     end
 
     def update
-      if @user.update(active: params.require(:user).fetch(:active, false))
+  if @user.update(user_params)
 
-        redirect_to admin_users_path,
-          notice: "Usuario actualizado."
+    redirect_to admin_users_path,
+      notice: "Usuario actualizado."
 
-      else
+  else
 
-        render :edit,
-          status: :unprocessable_entity
+    render :edit,
+      status: :unprocessable_entity
 
-      end
-    end
+  end
+end
 
     private
 
     def set_user
       @user = User.find(params[:id])
     end
+    def user_params
+  params.require(:user).permit(:active, :role)
+end
 
   end
 end
