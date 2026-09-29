@@ -47,18 +47,21 @@
             reader_logout_path,
             method: :delete,
             class: "portal-admin-btn" %>
-
       <% else %>
 
-        <%= link_to "Ingresar",
-            reader_login_path,
-            class: "portal-admin-btn" %>
+  <%= link_to "Administración",
+      admin_login_path,
+      class: "portal-admin-btn" %>
 
-        <%= link_to "Registrarse",
-            reader_register_path,
-            class: "portal-admin-btn" %>
+  <%= link_to "Ingresar",
+      reader_login_path,
+      class: "portal-admin-btn" %>
 
-      <% end %>
+  <%= link_to "Registrarse",
+      reader_register_path,
+      class: "portal-admin-btn" %>
+
+<% end %>
 
     </div>
 

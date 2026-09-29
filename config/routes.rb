@@ -43,8 +43,33 @@ Rails.application.routes.draw do
     end
   end
 
-  # ============================================================
-  # ENTRADA PRINCIPAL
-  # ============================================================
-  root to: redirect("/admin/login")
+ # ============================================================
+# PORTAL PÚBLICO / LECTORES
+# ============================================================
+
+root "home#index"
+
+# Registro
+get  "registro", to: "reader_registrations#new",    as: :reader_register
+post "registro", to: "reader_registrations#create"
+
+# Login / logout
+get    "ingresar", to: "reader_sessions#new",     as: :reader_login
+post   "ingresar", to: "reader_sessions#create"
+delete "salir",    to: "reader_sessions#destroy", as: :reader_logout
+
+# Perfil
+get "perfil", to: "reader_profiles#show", as: :reader_profile
+
+# Favoritos
+get    "favoritos",     to: "reader_favorites#index",   as: :reader_favorites
+post   "favoritos/:id", to: "reader_favorites#create",  as: :reader_favorite
+delete "favoritos/:id", to: "reader_favorites#destroy"
+
+# Noticias públicas
+resources :news_articles, only: [:show] do
+  resources :comments,
+            only: [:create],
+            controller: "reader_comments"
+end
 end
