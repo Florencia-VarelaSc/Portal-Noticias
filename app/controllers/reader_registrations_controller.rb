@@ -1,6 +1,5 @@
 
 class ReaderRegistrationsController < ApplicationController
-
   def new
     @user = User.new
   end
@@ -40,5 +39,4 @@ class ReaderRegistrationsController < ApplicationController
       :password_confirmation
     )
   end
-
 end

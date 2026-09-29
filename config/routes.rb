@@ -40,14 +40,14 @@ Rails.application.routes.draw do
     end
   end
 
-    # Página principal
+  # Página principal
   root "home#index"
 
-  
+
 # Noticias públicas y comentarios de lectores
-resources :news_articles, only: [:show] do
+resources :news_articles, only: [ :show ] do
   resources :reader_comments,
-            only: [:create],
+            only: [ :create ],
             path: "comentarios"
 end
 
@@ -69,7 +69,7 @@ end
   # Perfil del lector
   get "mi-perfil", to: "reader_profiles#show",
     as: :reader_profile
-  
+
 # Favoritos del lector
 get "mis-favoritos",
     to: "reader_favorites#index",
@@ -81,5 +81,4 @@ post "mis-favoritos",
 delete "mis-favoritos/:id",
        to: "reader_favorites#destroy",
        as: :reader_favorite
-
 end

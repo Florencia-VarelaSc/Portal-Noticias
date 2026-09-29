@@ -1,7 +1,6 @@
 
 module Admin
   class CommentsController < Admin::BaseController
-
     def index
       # El administrador puede ver todos los comentarios.
       # El periodista solo ve los de sus propias noticias.
@@ -36,6 +35,5 @@ module Admin
       redirect_to admin_comments_path,
         notice: "Comentario eliminado."
     end
-
   end
 end

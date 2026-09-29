@@ -1,7 +1,5 @@
 class NewsArticlesController < ApplicationController
-
   def show
-
     # Recuperamos únicamente la noticia publicada.
     @noticia = NewsArticle
       .published
@@ -16,7 +14,5 @@ class NewsArticlesController < ApplicationController
 
     # Preparamos un comentario vacío para el formulario.
     @comentario = Comment.new
-
   end
-
 end

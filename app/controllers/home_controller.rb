@@ -1,6 +1,5 @@
 
 class HomeController < ApplicationController
-
   def index
     # Recuperamos únicamente las noticias publicadas
     # y las ordenamos desde la más reciente.
@@ -17,5 +16,4 @@ class HomeController < ApplicationController
     # Las demás noticias aparecerán en las tarjetas.
     @ultimas_noticias = @noticias.drop(1)
   end
-
 end

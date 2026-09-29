@@ -1,12 +1,10 @@
 
 module Admin
   class NewsArticlesController < Admin::BaseController
-
     before_action :set_news_article,
-      only: [:show, :edit, :update, :destroy, :publish, :archive]
+      only: [ :show, :edit, :update, :destroy, :publish, :archive ]
 
     def index
-
   if current_admin.admin?
 
     # El administrador puede ver todas las noticias.
@@ -19,7 +17,6 @@ module Admin
       .order(created_at: :desc)
 
   end
-
 end
 
     def show
@@ -98,6 +95,5 @@ end
         :cover_image
       )
     end
-
   end
 end

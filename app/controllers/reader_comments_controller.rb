@@ -1,6 +1,5 @@
 
 class ReaderCommentsController < ApplicationController
-
   before_action :require_reader
 
   def create
@@ -28,5 +27,4 @@ class ReaderCommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body)
   end
-
 end

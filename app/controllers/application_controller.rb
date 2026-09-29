@@ -1,6 +1,5 @@
 
 class ApplicationController < ActionController::Base
-
   allow_browser versions: :modern
 
   helper_method :current_reader, :reader_logged_in?
@@ -30,5 +29,4 @@ class ApplicationController < ActionController::Base
     redirect_to reader_login_path,
                 alert: "Tenés que iniciar sesión para continuar."
   end
-
 end

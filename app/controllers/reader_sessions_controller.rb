@@ -1,6 +1,5 @@
 
 class ReaderSessionsController < ApplicationController
-
   def new
   end
 
@@ -37,5 +36,4 @@ class ReaderSessionsController < ApplicationController
     redirect_to root_path,
       notice: "Cerraste sesión correctamente."
   end
-
 end

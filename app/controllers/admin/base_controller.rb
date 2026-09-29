@@ -1,7 +1,6 @@
 
 module Admin
   class BaseController < ActionController::Base
-
     layout "admin"
 
     before_action :require_admin_login
@@ -35,6 +34,5 @@ module Admin
           alert: "No tenés permisos para acceder a esta sección."
       end
     end
-
   end
 end

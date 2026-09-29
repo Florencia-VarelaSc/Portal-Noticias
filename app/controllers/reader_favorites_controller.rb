@@ -1,6 +1,5 @@
 
 class ReaderFavoritesController < ApplicationController
-
   before_action :require_reader
 
   def index
@@ -38,5 +37,4 @@ class ReaderFavoritesController < ApplicationController
     redirect_to reader_favorites_path,
                 notice: "Noticia eliminada de favoritos."
   end
-
 end

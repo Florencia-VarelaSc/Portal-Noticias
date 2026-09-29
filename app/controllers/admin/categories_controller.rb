@@ -1,13 +1,12 @@
 
 module Admin
   class CategoriesController < Admin::BaseController
-
     # Solo los administradores pueden modificar categorías.
     before_action :require_admin_role,
-      except: [:index, :show]
+      except: [ :index, :show ]
 
     before_action :set_category,
-      only: [:show, :edit, :update, :destroy]
+      only: [ :show, :edit, :update, :destroy ]
 
     def index
       @categories = Category.order(:name)
@@ -62,6 +61,5 @@ module Admin
     def category_params
       params.require(:category).permit(:name)
     end
-
   end
 end
