@@ -1,124 +1,283 @@
-# Sistema de publicaciones / noticias
+# Portal de Noticias
 
-Trabajo Práctico N.º 1 - Programación IV (UTN). Aplicación Ruby on Rails con back-office
-administrativo y API JSON para un sistema de noticias.
+Trabajo Práctico N.º 1 - Programación IV - UTN.
 
-## Objetivo general
+Aplicación desarrollada con Ruby on Rails que implementa un back-office administrativo y una API JSON versionada para la gestión de un portal de noticias.
 
-Permitir que administradores y periodistas gestionen noticias mediante un back-office,
-y que usuarios finales se registren, consulten noticias, comenten y guarden favoritos
-a través de una API JSON versionada, pensada para ser consumida por un frontend externo
-(Trabajo Práctico N.º 2).
+## Objetivo
+
+El sistema permite que administradores y periodistas gestionen el contenido mediante un back-office autenticado.
+
+Además, dispone de una API REST bajo `/api/v1`, destinada a usuarios finales y preparada para ser consumida posteriormente por un frontend externo.
 
 ## Tipos de usuario
 
-- **Administrador / periodista** (`role: admin` / `journalist`): usa el back-office en `/admin`,
-  autenticado por sesión de Rails. Gestiona noticias, categorías, usuarios y comentarios.
-- **Usuario final** (`role: reader`): consume la API en `/api/v1`, autenticado con un token
-  enviado en el header `Authorization: Bearer <token>`.
+El sistema utiliza tres roles:
+
+- `admin`: administrador del sistema.
+- `journalist`: periodista.
+- `reader`: usuario final de la API.
+
+El back-office utiliza autenticación mediante sesión de Rails.
+
+Los usuarios finales de la API utilizan un token enviado mediante:
+
+`Authorization: Bearer <token>`
 
 ## Modelo de datos
 
-5 modelos principales:
+El sistema cuenta con los siguientes modelos principales:
 
-- `User` — `name`, `email`, `password_digest`, `role` (enum: reader/journalist/admin),
-  `active`, `api_token`. `has_many :news_articles, :comments, :favorites`.
-- `Category` — `name`. `has_many :news_articles`.
-- `NewsArticle` — `title`, `body`, `status` (enum: draft/published/archived), `published_at`.
-  `belongs_to :user, :category`. `has_many :comments, :favorites`. `has_one_attached :cover_image`.
-  Validación de negocio: no puede guardarse como `published` sin `published_at`.
-- `Comment` — `body`. `belongs_to :user, :news_article`.
-- `Favorite` — `belongs_to :user, :news_article`. Validación de unicidad (un usuario no puede
-  favoritear la misma noticia dos veces).
+### User
 
-## Instalación y ejecución
+Contiene:
 
-Requisitos: Ruby 3.2+, SQLite3.
+- nombre
+- email
+- contraseña segura
+- rol
+- estado activo
+- token de API
+
+Roles disponibles:
+
+- reader
+- journalist
+- admin
+
+Un usuario puede tener noticias, comentarios y favoritos.
+
+### Category
+
+Representa las categorías utilizadas para clasificar las noticias.
+
+Una categoría puede contener múltiples noticias.
+
+### NewsArticle
+
+Representa una noticia.
+
+Contiene:
+
+- título
+- cuerpo
+- estado
+- fecha de publicación
+- autor
+- categoría
+
+Estados disponibles:
+
+- draft
+- published
+- archived
+
+Una noticia puede tener comentarios y favoritos.
+
+Además utiliza Active Storage para almacenar una imagen de portada.
+
+### Comment
+
+Representa un comentario realizado por un usuario sobre una noticia.
+
+### Favorite
+
+Relaciona un usuario con una noticia marcada como favorita.
+
+Existe una validación de unicidad para impedir que un usuario marque dos veces como favorita la misma noticia.
+
+## Instalación
+
+Requisitos principales:
+
+- Ruby 3.2.3
+- Rails 8.1.3.1
+- SQLite3
+- Bundler
+
+Instalar las dependencias:
 
 ```bash
 bundle install
-bin/rails db:create db:migrate
-bin/rails server
 ```
 
-La app queda disponible en `http://localhost:3000`.
-
-## Preparar la base de datos
+Preparar la base de datos:
 
 ```bash
-bin/rails db:create db:migrate
+bin/rails db:prepare
+bin/rails db:seed
 ```
 
-Para cargar un administrador de prueba:
+Los seeds generan los usuarios y categorías necesarios para realizar una demostración del sistema.
+
+## Ejecutar el proyecto
 
 ```bash
-bin/rails runner '
-User.find_or_create_by!(email: "admin@utn.edu.ar") do |u|
-  u.name = "Admin UTN"
-  u.password = "admin1234"
-  u.role = :admin
-end
-'
+bin/rails server -p 3001
 ```
 
-## Acceso al back-office
+La aplicación estará disponible en:
 
-- URL: `http://localhost:3000/admin/login`
-- Credenciales de prueba: `admin@utn.edu.ar` / `admin1234`
+`http://localhost:3001`
 
-## Endpoints principales de la API
+## Back-office
 
-Todos los endpoints (excepto registro y login) requieren el header:
-`Authorization: Bearer <token>`
+Acceso:
 
-| Método | Endpoint                          | Descripción                          |
-|--------|------------------------------------|---------------------------------------|
-| POST   | `/api/v1/register`                | Registro de usuario final             |
-| POST   | `/api/v1/login`                   | Login, devuelve token                 |
-| GET    | `/api/v1/news`                    | Listado de noticias publicadas        |
-| GET    | `/api/v1/news?category_id=:id`    | Noticias filtradas por categoría      |
-| GET    | `/api/v1/news/:id`                | Detalle de una noticia                |
-| POST   | `/api/v1/news/:id/comments`       | Comentar una noticia                  |
-| GET    | `/api/v1/categories`              | Listado de categorías                 |
-| GET    | `/api/v1/favorites`               | Favoritos del usuario autenticado     |
-| POST   | `/api/v1/favorites`               | Agregar favorito                      |
-| DELETE | `/api/v1/favorites/:id`           | Quitar favorito                       |
-| GET    | `/api/v1/profile`                 | Perfil del usuario autenticado        |
+`http://localhost:3001/admin/login`
+
+### Administrador
+
+Email:
+
+`admin@utn.edu.ar`
+
+Contraseña:
+
+`admin123`
+
+### Periodista
+
+Email:
+
+`finoraapp@gmail.com`
+
+Contraseña:
+
+`periodista123`
+
+El back-office permite gestionar:
+
+- Noticias
+- Categorías
+- Usuarios
+- Comentarios
+
+Las operaciones disponibles dependen del rol del usuario autenticado.
+
+## API REST
+
+La API se encuentra versionada bajo:
+
+`/api/v1`
+
+### Autenticación
+
+El login devuelve un token de API.
+
+Los endpoints protegidos requieren:
+
+```text
+Authorization: Bearer <token>
+```
+
+### Endpoints principales
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| POST | `/api/v1/register` | Registrar usuario final |
+| POST | `/api/v1/login` | Autenticar usuario y obtener token |
+| GET | `/api/v1/news` | Listar noticias |
+| GET | `/api/v1/news/:id` | Obtener una noticia |
+| GET | `/api/v1/categories` | Listar categorías |
+| POST | `/api/v1/news/:news_id/comments` | Crear comentario |
+| GET | `/api/v1/favorites` | Listar favoritos |
+| POST | `/api/v1/favorites` | Agregar favorito |
+| DELETE | `/api/v1/favorites/:id` | Eliminar favorito |
+| GET | `/api/v1/profile` | Obtener perfil del usuario autenticado |
 
 ## Active Storage
 
-Se usa para la imagen de portada de las noticias (`NewsArticle#cover_image`), adjuntable
-desde el formulario del back-office.
+Active Storage se utiliza para asociar una imagen de portada a cada noticia.
+
+La imagen puede cargarse desde el formulario de noticias del back-office.
 
 ## Action Mailer
 
-Se envía un email de bienvenida (`UserMailer#welcome_email`) al registrarse un usuario
-desde la API. En desarrollo, los emails se loggean en consola (no se envían realmente).
+El proyecto incluye `UserMailer`.
+
+Cuando un usuario se registra mediante la API se ejecuta el correo de bienvenida mediante:
+
+```ruby
+UserMailer.welcome_email(user).deliver_later
+```
 
 ## Testing
+
+Ejecutar:
 
 ```bash
 bin/rails test
 ```
 
-Incluye tests de modelos (validaciones, enum de estado, lógica de publicación, unicidad
-de favoritos) y tests de integración (login del back-office, y flujo completo de la API:
-registro, login, noticias, comentarios, favoritos, perfil).
+Último resultado verificado:
 
-## Calidad de código y seguridad
-
-```bash
-bin/rubocop      # 0 observaciones
-bin/brakeman     # 0 vulnerabilidades de código
+```text
+13 runs
+42 assertions
+0 failures
+0 errors
+0 skips
 ```
 
-Brakeman reporta una advertencia de "Unmaintained Dependency" sobre la versión de Ruby
-del entorno de desarrollo utilizado (3.2.3, EOL). No corresponde a una vulnerabilidad de
-código de la aplicación; se recomienda actualizar a una versión de Ruby soportada antes
-de un despliegue a producción.
+Se incluyen pruebas de modelos y pruebas de integración de los principales flujos de la aplicación.
 
-## Git
+## RuboCop
 
-El proyecto se desarrolló con commits incrementales que reflejan la evolución: proyecto
-inicial, modelos uno por uno, back-office, API, Action Mailer y tests. Ver `git log` para
-el historial completo.
+Para analizar la calidad y el estilo del código:
+
+```bash
+bin/rubocop
+```
+
+Último resultado verificado:
+
+```text
+68 files inspected, no offenses detected
+```
+
+## Brakeman
+
+Para realizar el análisis estático de seguridad:
+
+```bash
+bin/brakeman
+```
+
+Último análisis:
+
+```text
+Errors: 0
+Security Warnings: 2
+```
+
+Las advertencias detectadas son:
+
+1. `Unmaintained Dependency`: Ruby 3.2.3 finalizó su período de soporte.
+2. `Mass Assignment`: Brakeman advierte que `role` puede ser modificado desde el controlador de usuarios.
+
+La modificación del rol pertenece al back-office y está protegida mediante `require_admin_role`, por lo que únicamente un administrador autorizado puede realizar dicha operación.
+
+La actualización de Ruby queda como mejora futura del entorno.
+
+## Comandos de verificación
+
+```bash
+bin/rails test
+bin/rubocop
+bin/brakeman
+```
+
+## Ramas del proyecto
+
+### main
+
+Versión correspondiente al TP1, enfocada en:
+
+- Back-office
+- API REST
+- modelos y lógica de negocio
+
+### front-tp2
+
+Conserva el desarrollo realizado del frontend para continuar su integración en la siguiente etapa del proyecto.
